@@ -85,6 +85,43 @@ const experience = [
 
 function Portfolio() {
   const resumeUrl = resumeAsset.url;
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  const speakIntro = () => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    const synth = window.speechSynthesis;
+    if (isSpeaking) {
+      synth.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(INTRO_SCRIPT);
+    u.rate = 1;
+    u.pitch = 1;
+    u.volume = 1;
+    const voices = synth.getVoices();
+    const preferred =
+      voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && /male|david|google.*us|mark/i.test(v.name)) ||
+      voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang)) ||
+      voices.find((v) => v.lang.startsWith("en"));
+    if (preferred) u.voice = preferred;
+    u.onend = () => setIsSpeaking(false);
+    u.onerror = () => setIsSpeaking(false);
+    utteranceRef.current = u;
+    setIsSpeaking(true);
+    synth.speak(u);
+  };
+
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
