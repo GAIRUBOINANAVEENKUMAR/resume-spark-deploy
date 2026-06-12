@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import resumeAsset from "@/assets/resume.pdf.asset.json";
+import profileAsset from "@/assets/naveen-profile.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -157,28 +158,32 @@ function Portfolio() {
             </div>
           </div>
 
-          {/* Code Card */}
+          {/* Profile + Code Card */}
           <div className="relative animate-fade-up" style={{ animationDelay: "200ms" }}>
             <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400/20 via-violet-500/20 to-amber-400/20 blur-3xl opacity-60 animate-glow-pulse" />
-            <div className="relative glass rounded-2xl p-6 font-mono text-sm shadow-2xl animate-float">
-              <div className="flex gap-2 mb-4">
-                <span className="size-3 rounded-full bg-red-400/70" />
-                <span className="size-3 rounded-full bg-yellow-400/70" />
-                <span className="size-3 rounded-full bg-green-400/70" />
-                <span className="ml-2 text-xs text-muted-foreground">naveen.tsx</span>
+            <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden glass p-2 animate-float shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-violet-500/10 pointer-events-none" />
+                <img
+                  src={profileAsset.url}
+                  alt="Gairuboina Naveen Kumar — Full Stack Developer"
+                  loading="eager"
+                  className="w-full aspect-square object-cover rounded-xl"
+                />
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between px-4 py-2 rounded-xl glass backdrop-blur-xl">
+                  <div>
+                    <div className="font-display font-semibold text-sm">Naveen Kumar</div>
+                    <div className="text-xs text-muted-foreground font-mono">@naveen.dev</div>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-mono">
+                    <span className="size-2 rounded-full bg-green-400 animate-glow-pulse" />
+                    online
+                  </span>
+                </div>
               </div>
-              <pre className="text-xs leading-relaxed text-muted-foreground">
-{`const `}<span className="text-cyan-300">dev</span>{` = {
-  `}<span className="text-violet-300">name</span>{`: `}<span className="text-amber-300">"Naveen Kumar"</span>{`,
-  `}<span className="text-violet-300">role</span>{`: `}<span className="text-amber-300">"Full Stack Dev"</span>{`,
-  `}<span className="text-violet-300">stack</span>{`: [`}<span className="text-amber-300">"MERN"</span>{`, `}<span className="text-amber-300">"AI"</span>{`],
-  `}<span className="text-violet-300">location</span>{`: `}<span className="text-amber-300">"Bengaluru"</span>{`,
-  `}<span className="text-violet-300">passion</span>{`: () => 
-    `}<span className="text-amber-300">"building things"</span>{`,
-};`}
-              </pre>
             </div>
           </div>
+
         </div>
       </section>
 
