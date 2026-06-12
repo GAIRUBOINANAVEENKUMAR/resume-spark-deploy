@@ -111,7 +111,7 @@ function Portfolio() {
 
       {/* Hero */}
       <section id="top" className="relative pt-32 pb-24 px-6 grid-bg">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-[1.4fr_1fr] gap-12 items-center">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 items-center">
           <div className="animate-fade-up">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs font-mono mb-6">
               <span className="size-2 rounded-full bg-green-400 animate-glow-pulse" />
