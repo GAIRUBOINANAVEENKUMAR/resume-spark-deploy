@@ -166,7 +166,7 @@ function Portfolio() {
               Full Stack Developer crafting MERN applications, REST APIs, and AI-powered systems.
               <span className="text-foreground"> 4+ production projects</span> shipped,
               <span className="text-foreground"> 1 IEEE publication</span>, and
-              <span className="text-foreground"> 200+ DSA problems</span> solved.
+              <span className="text-foreground"> 200 DSA problems</span> solved.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
