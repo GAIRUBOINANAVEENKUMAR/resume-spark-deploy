@@ -166,7 +166,7 @@ function Portfolio() {
               Full Stack Developer crafting MERN applications, REST APIs, and AI-powered systems.
               <span className="text-foreground"> 4+ production projects</span> shipped,
               <span className="text-foreground"> 1 IEEE publication</span>, and
-              <span className="text-foreground"> 200+ DSA problems</span> solved.
+              <span className="text-foreground"> 200 DSA problems</span> solved.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -193,7 +193,7 @@ function Portfolio() {
 
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
               <Stat n="4+" l="Projects" />
-              <Stat n="200+" l="DSA Solved" />
+              <Stat n="200" l="DSA Solved" />
               <Stat n="91%" l="Model Acc." />
             </div>
           </div>
@@ -376,7 +376,7 @@ function Portfolio() {
             <h3 className="font-display font-semibold mb-4 text-lg">🏆 Achievements</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>📄 Published research paper in IEEE Xplore</li>
-              <li>💻 Solved 200+ problems on LeetCode & HackerRank</li>
+              <li>💻 Solved 200 problems on LeetCode & HackerRank</li>
               <li>🐍 Completed NPTEL — Joy of Computing Using Python</li>
             </ul>
           </div>
