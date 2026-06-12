@@ -158,28 +158,25 @@ function Portfolio() {
             </div>
           </div>
 
-          {/* Profile + Code Card */}
-          <div className="relative animate-fade-up" style={{ animationDelay: "200ms" }}>
-            <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400/20 via-violet-500/20 to-amber-400/20 blur-3xl opacity-60 animate-glow-pulse" />
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden glass p-2 animate-float shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-violet-500/10 pointer-events-none" />
+          {/* Circular Profile Picture with Effects */}
+          <div className="relative flex items-center justify-center animate-fade-up" style={{ animationDelay: "200ms" }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-violet-500/30 to-amber-400/30 blur-3xl opacity-50 animate-glow-pulse" />
+            {/* Rotating gradient ring */}
+            <div className="relative size-72 md:size-80 lg:size-96">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-violet-500 to-amber-400 animate-spin-slow opacity-80" />
+              <div className="absolute inset-[3px] rounded-full bg-[var(--color-background)]" />
+              <div className="absolute inset-[6px] rounded-full overflow-hidden animate-float shadow-[0_0_60px_-10px_oklch(0.68_0.21_305_/_0.5)]">
                 <img
                   src={profileAsset.url}
                   alt="Gairuboina Naveen Kumar — Full Stack Developer"
                   loading="eager"
-                  className="w-full aspect-square object-cover rounded-xl"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between px-4 py-2 rounded-xl glass backdrop-blur-xl">
-                  <div>
-                    <div className="font-display font-semibold text-sm">Naveen Kumar</div>
-                    <div className="text-xs text-muted-foreground font-mono">@naveen.dev</div>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-mono">
-                    <span className="size-2 rounded-full bg-green-400 animate-glow-pulse" />
-                    online
-                  </span>
-                </div>
+              </div>
+              {/* Status dot */}
+              <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full glass text-xs font-mono">
+                <span className="size-2.5 rounded-full bg-green-400 animate-glow-pulse" />
+                online
               </div>
             </div>
           </div>
