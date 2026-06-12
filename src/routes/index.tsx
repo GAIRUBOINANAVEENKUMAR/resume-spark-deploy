@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import resumeAsset from "@/assets/resume.pdf.asset.json";
 import profileAsset from "@/assets/naveen-profile.png.asset.json";
+
+const INTRO_SCRIPT = "Hi there! I'm Naveen Kumar Gairuboina, a full stack developer specializing in the MERN stack. I've shipped four plus production projects, published research in IEEE Xplore on forest fire prediction with ninety one percent accuracy, and solved over two hundred DSA problems. I love building scalable web applications, REST APIs, and AI powered systems. Let's build something amazing together!";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -82,6 +85,43 @@ const experience = [
 
 function Portfolio() {
   const resumeUrl = resumeAsset.url;
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  const speakIntro = () => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    const synth = window.speechSynthesis;
+    if (isSpeaking) {
+      synth.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(INTRO_SCRIPT);
+    u.rate = 1;
+    u.pitch = 1;
+    u.volume = 1;
+    const voices = synth.getVoices();
+    const preferred =
+      voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && /male|david|google.*us|mark/i.test(v.name)) ||
+      voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang)) ||
+      voices.find((v) => v.lang.startsWith("en"));
+    if (preferred) u.voice = preferred;
+    u.onend = () => setIsSpeaking(false);
+    u.onerror = () => setIsSpeaking(false);
+    utteranceRef.current = u;
+    setIsSpeaking(true);
+    synth.speak(u);
+  };
+
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
@@ -158,28 +198,57 @@ function Portfolio() {
             </div>
           </div>
 
-          {/* Circular Profile Picture with Effects */}
-          <div className="relative flex items-center justify-center animate-fade-up" style={{ animationDelay: "200ms" }}>
+          {/* Circular Profile Picture with Effects — click to hear intro */}
+          <div className="relative flex flex-col items-center justify-center animate-fade-up" style={{ animationDelay: "200ms" }}>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-violet-500/30 to-amber-400/30 blur-3xl opacity-50 animate-glow-pulse" />
             {/* Rotating gradient ring */}
-            <div className="relative size-72 md:size-80 lg:size-96">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-violet-500 to-amber-400 animate-spin-slow opacity-80" />
+            <button
+              type="button"
+              onClick={speakIntro}
+              aria-label={isSpeaking ? "Stop introduction" : "Play voice introduction"}
+              className="group relative size-72 md:size-80 lg:size-96 cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-violet-400/50 rounded-full"
+            >
+              <div className={`absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-violet-500 to-amber-400 animate-spin-slow ${isSpeaking ? "opacity-100" : "opacity-80"}`} />
               <div className="absolute inset-[3px] rounded-full bg-[var(--color-background)]" />
-              <div className="absolute inset-[6px] rounded-full overflow-hidden animate-float shadow-[0_0_60px_-10px_oklch(0.68_0.21_305_/_0.5)]">
+              <div className={`absolute inset-[6px] rounded-full overflow-hidden animate-float shadow-[0_0_60px_-10px_oklch(0.68_0.21_305_/_0.5)] transition-transform group-hover:scale-[1.02] ${isSpeaking ? "ring-4 ring-cyan-400/60" : ""}`}>
                 <img
                   src={profileAsset.url}
                   alt="Gairuboina Naveen Kumar — Full Stack Developer"
                   loading="eager"
                   className="w-full h-full object-cover"
                 />
+                {/* Speaking sound waves overlay */}
+                {isSpeaking && (
+                  <div className="absolute inset-0 flex items-end justify-center pb-6 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+                    <div className="flex items-end gap-1 h-10">
+                      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+                        <span
+                          key={i}
+                          className="w-1.5 rounded-full bg-cyan-300"
+                          style={{
+                            animation: `eq 0.9s ease-in-out ${i * 0.08}s infinite`,
+                            height: "40%",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               {/* Status dot */}
               <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full glass text-xs font-mono">
-                <span className="size-2.5 rounded-full bg-green-400 animate-glow-pulse" />
-                online
+                <span className={`size-2.5 rounded-full ${isSpeaking ? "bg-cyan-400" : "bg-green-400"} animate-glow-pulse`} />
+                {isSpeaking ? "speaking" : "online"}
               </div>
+            </button>
+            {/* Hint pill */}
+            <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs font-mono text-muted-foreground">
+              <SpeakerIcon active={isSpeaking} />
+              {isSpeaking ? "Click photo to stop" : "Click my photo to hear intro"}
             </div>
           </div>
+
+
 
         </div>
       </section>
@@ -404,6 +473,16 @@ function DownloadIcon() {
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function SpeakerIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={active ? "text-cyan-300" : ""}>
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      {active && <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />}
+      {active && <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />}
     </svg>
   );
 }
