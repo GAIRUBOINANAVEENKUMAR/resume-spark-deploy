@@ -193,7 +193,7 @@ function Portfolio() {
 
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
               <Stat n="4+" l="Projects" />
-              <Stat n="200+" l="DSA Solved" />
+              <Stat n="200" l="DSA Solved" />
               <Stat n="91%" l="Model Acc." />
             </div>
           </div>
