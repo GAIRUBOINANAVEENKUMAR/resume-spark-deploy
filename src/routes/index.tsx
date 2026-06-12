@@ -198,28 +198,57 @@ function Portfolio() {
             </div>
           </div>
 
-          {/* Circular Profile Picture with Effects */}
-          <div className="relative flex items-center justify-center animate-fade-up" style={{ animationDelay: "200ms" }}>
+          {/* Circular Profile Picture with Effects — click to hear intro */}
+          <div className="relative flex flex-col items-center justify-center animate-fade-up" style={{ animationDelay: "200ms" }}>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 via-violet-500/30 to-amber-400/30 blur-3xl opacity-50 animate-glow-pulse" />
             {/* Rotating gradient ring */}
-            <div className="relative size-72 md:size-80 lg:size-96">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-violet-500 to-amber-400 animate-spin-slow opacity-80" />
+            <button
+              type="button"
+              onClick={speakIntro}
+              aria-label={isSpeaking ? "Stop introduction" : "Play voice introduction"}
+              className="group relative size-72 md:size-80 lg:size-96 cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-violet-400/50 rounded-full"
+            >
+              <div className={`absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-violet-500 to-amber-400 animate-spin-slow ${isSpeaking ? "opacity-100" : "opacity-80"}`} />
               <div className="absolute inset-[3px] rounded-full bg-[var(--color-background)]" />
-              <div className="absolute inset-[6px] rounded-full overflow-hidden animate-float shadow-[0_0_60px_-10px_oklch(0.68_0.21_305_/_0.5)]">
+              <div className={`absolute inset-[6px] rounded-full overflow-hidden animate-float shadow-[0_0_60px_-10px_oklch(0.68_0.21_305_/_0.5)] transition-transform group-hover:scale-[1.02] ${isSpeaking ? "ring-4 ring-cyan-400/60" : ""}`}>
                 <img
                   src={profileAsset.url}
                   alt="Gairuboina Naveen Kumar — Full Stack Developer"
                   loading="eager"
                   className="w-full h-full object-cover"
                 />
+                {/* Speaking sound waves overlay */}
+                {isSpeaking && (
+                  <div className="absolute inset-0 flex items-end justify-center pb-6 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+                    <div className="flex items-end gap-1 h-10">
+                      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+                        <span
+                          key={i}
+                          className="w-1.5 rounded-full bg-cyan-300"
+                          style={{
+                            animation: `eq 0.9s ease-in-out ${i * 0.08}s infinite`,
+                            height: "40%",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               {/* Status dot */}
               <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full glass text-xs font-mono">
-                <span className="size-2.5 rounded-full bg-green-400 animate-glow-pulse" />
-                online
+                <span className={`size-2.5 rounded-full ${isSpeaking ? "bg-cyan-400" : "bg-green-400"} animate-glow-pulse`} />
+                {isSpeaking ? "speaking" : "online"}
               </div>
+            </button>
+            {/* Hint pill */}
+            <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs font-mono text-muted-foreground">
+              <SpeakerIcon active={isSpeaking} />
+              {isSpeaking ? "Click photo to stop" : "Click my photo to hear intro"}
             </div>
           </div>
+
+
 
         </div>
       </section>
