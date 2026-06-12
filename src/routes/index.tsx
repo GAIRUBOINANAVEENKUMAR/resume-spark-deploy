@@ -376,7 +376,7 @@ function Portfolio() {
             <h3 className="font-display font-semibold mb-4 text-lg">🏆 Achievements</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>📄 Published research paper in IEEE Xplore</li>
-              <li>💻 Solved 200+ problems on LeetCode & HackerRank</li>
+              <li>💻 Solved 200 problems on LeetCode & HackerRank</li>
               <li>🐍 Completed NPTEL — Joy of Computing Using Python</li>
             </ul>
           </div>
