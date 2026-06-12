@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import resumeAsset from "@/assets/resume.pdf.asset.json";
 import profileAsset from "@/assets/naveen-profile.png.asset.json";
+
+const INTRO_SCRIPT = "Hi there! I'm Naveen Kumar Gairuboina, a full stack developer specializing in the MERN stack. I've shipped four plus production projects, published research in IEEE Xplore on forest fire prediction with ninety one percent accuracy, and solved over two hundred DSA problems. I love building scalable web applications, REST APIs, and AI powered systems. Let's build something amazing together!";
 
 export const Route = createFileRoute("/")({
   head: () => ({
