@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import resumeAsset from "@/assets/resume.pdf.asset.json";
 import profileAsset from "@/assets/naveen-profile.png.asset.json";
 
-const INTRO_SCRIPT = "Hi there! I'm Naveen Kumar Gairuboina, a full stack developer specializing in the MERN stack. I've shipped four plus production projects, published research in IEEE Xplore on forest fire prediction with ninety one percent accuracy, and solved over two hundred DSA problems. I love building scalable web applications, REST APIs, and AI powered systems. Let's build something amazing together!";
+const INTRO_SCRIPT = "Hi there! I'm Naveen Kumar Gairuboina, a full stack developer specializing in the MERN stack. I've shipped four plus production projects, published research in IEEE Xplore on forest fire prediction with ninety one percent accuracy, and solved two hundred plus problems on LeetCode and HackerRank. I love building scalable web applications, REST APIs, and AI powered systems. Let's build something amazing together!";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -166,7 +166,7 @@ function Portfolio() {
               Full Stack Developer crafting MERN applications, REST APIs, and AI-powered systems.
               <span className="text-foreground"> 4+ production projects</span> shipped,
               <span className="text-foreground"> 1 IEEE publication</span>, and
-              <span className="text-foreground"> 200 DSA problems</span> solved.
+              <span className="text-foreground"> 200+ problems</span> solved on LeetCode &amp; HackerRank.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -193,7 +193,7 @@ function Portfolio() {
 
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
               <Stat n="4+" l="Projects" />
-              <Stat n="200" l="DSA Solved" />
+              <Stat n="200+" l="DSA Solved" />
               <Stat n="91%" l="Model Acc." />
             </div>
           </div>
@@ -376,7 +376,7 @@ function Portfolio() {
             <h3 className="font-display font-semibold mb-4 text-lg">🏆 Achievements</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>📄 Published research paper in IEEE Xplore</li>
-              <li>💻 Solved 200 problems on LeetCode & HackerRank</li>
+              <li>💻 Solved 200+ problems on LeetCode & HackerRank</li>
               <li>🐍 Completed NPTEL — Joy of Computing Using Python</li>
             </ul>
           </div>
