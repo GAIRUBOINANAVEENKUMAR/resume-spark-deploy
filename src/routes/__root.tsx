@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Naveen Kumar Gairuboina" },
+      { name: "description", content: "Fresher's Showcase is a single-page portfolio website designed to market a candidate's resume." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Naveen Kumar Gairuboina" },
+      { property: "og:description", content: "Fresher's Showcase is a single-page portfolio website designed to market a candidate's resume." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Naveen Kumar Gairuboina" },
+      { name: "twitter:description", content: "Fresher's Showcase is a single-page portfolio website designed to market a candidate's resume." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/141f0ded-6b02-43f6-aa1a-9095142aac15" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/141f0ded-6b02-43f6-aa1a-9095142aac15" },
     ],
     links: [
       {
