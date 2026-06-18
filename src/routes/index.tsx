@@ -108,15 +108,18 @@ function Portfolio() {
 
     const setVoiceAndSpeak = () => {
       const u = new SpeechSynthesisUtterance(INTRO_SCRIPT);
-      u.rate = 1;
-      u.pitch = 0.92;
+      u.rate = 0.94;
+      u.pitch = 0.58;
       u.volume = 1;
       u.lang = "en-US";
       const voices = synth.getVoices();
-      const femaleNames = /samantha|victoria|karen|moira|tessa|serena|zira|jenny|aria|sonya|lisa|emma|amy|olivia|susan|kate|catherine|laura|jane/i;
+      const femaleNames = /\bfemale\b|woman|samantha|victoria|karen|moira|tessa|serena|zira|jenny|aria|sonya|lisa|emma|amy|olivia|susan|kate|catherine|laura|jane/i;
+      const maleNames = /\bmale\b|\bman\b|david|mark|alex|fred|bruce|james|john|paul|richard|tom|daniel|george|henry|michael|ryan|steve|edward|aaron|arthur|oliver|thomas|microsoft david|microsoft james|microsoft mark|microsoft george|microsoft ryan|google uk english male/i;
+      const englishMaleVoices = voices.filter((v) => /en[-_](US|GB|IN|AU|CA)/i.test(v.lang) && !femaleNames.test(v.name));
       const maleVoice =
-        voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && /male|david|mark|alex|fred|bruce|james|john|paul|richard|tom|daniel|george|henry|michael|ryan|steve|edward|google us english|microsoft david|microsoft james|microsoft mark|microsoft george|microsoft ryan/i.test(v.name)) ||
-        voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && !femaleNames.test(v.name));
+        englishMaleVoices.find((v) => maleNames.test(v.name)) ||
+        englishMaleVoices.find((v) => /en[-_]GB/i.test(v.lang)) ||
+        englishMaleVoices[0];
       if (maleVoice) u.voice = maleVoice;
       u.onend = () => setIsSpeaking(false);
       u.onerror = () => setIsSpeaking(false);
