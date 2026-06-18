@@ -105,21 +105,35 @@ function Portfolio() {
       return;
     }
     synth.cancel();
-    const u = new SpeechSynthesisUtterance(INTRO_SCRIPT);
-    u.rate = 1;
-    u.pitch = 1;
-    u.volume = 1;
-    const voices = synth.getVoices();
-    const preferred =
-      voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && /male|david|google.*us|mark/i.test(v.name)) ||
-      voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang)) ||
-      voices.find((v) => v.lang.startsWith("en"));
-    if (preferred) u.voice = preferred;
-    u.onend = () => setIsSpeaking(false);
-    u.onerror = () => setIsSpeaking(false);
-    utteranceRef.current = u;
-    setIsSpeaking(true);
-    synth.speak(u);
+
+    const setVoiceAndSpeak = () => {
+      const u = new SpeechSynthesisUtterance(INTRO_SCRIPT);
+      u.rate = 1;
+      u.pitch = 0.92;
+      u.volume = 1;
+      u.lang = "en-US";
+      const voices = synth.getVoices();
+      const femaleNames = /samantha|victoria|karen|moira|tessa|serena|zira|jenny|aria|sonya|lisa|emma|amy|olivia|susan|kate|catherine|laura|jane/i;
+      const maleVoice =
+        voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && /male|david|mark|alex|fred|bruce|james|john|paul|richard|tom|daniel|george|henry|michael|ryan|steve|edward|google us english|microsoft david|microsoft james|microsoft mark|microsoft george|microsoft ryan/i.test(v.name)) ||
+        voices.find((v) => /en[-_](US|GB|IN)/i.test(v.lang) && !femaleNames.test(v.name));
+      if (maleVoice) u.voice = maleVoice;
+      u.onend = () => setIsSpeaking(false);
+      u.onerror = () => setIsSpeaking(false);
+      utteranceRef.current = u;
+      setIsSpeaking(true);
+      synth.speak(u);
+    };
+
+    if (synth.getVoices().length === 0 && synth.onvoiceschanged !== undefined) {
+      const handler = () => {
+        synth.removeEventListener("voiceschanged", handler);
+        setVoiceAndSpeak();
+      };
+      synth.addEventListener("voiceschanged", handler);
+    } else {
+      setVoiceAndSpeak();
+    }
   };
 
 
@@ -164,9 +178,7 @@ function Portfolio() {
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl mb-8 leading-relaxed">
               Full Stack Developer crafting MERN applications, REST APIs, and AI-powered systems.
-              <span className="text-foreground"> 4+ production projects</span> shipped,
-              <span className="text-foreground"> 1 IEEE publication</span>, and
-              <span className="text-foreground"> 200+ problems</span> solved on LeetCode &amp; HackerRank.
+              Published research in IEEE Xplore and passionate about building scalable, production-grade software.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -191,11 +203,6 @@ function Portfolio() {
               </a>
             </div>
 
-            <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
-              <Stat n="4+" l="Projects" />
-              <Stat n="200+" l="DSA Solved" />
-              <Stat n="91%" l="Model Acc." />
-            </div>
           </div>
 
           {/* Circular Profile Picture with Effects — click to hear intro */}
